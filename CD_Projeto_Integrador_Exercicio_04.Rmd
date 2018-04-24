@@ -1,0 +1,449 @@
+---
+title: "Projeto Integrador - Exercicio 04"
+author: "Adelvan Lima"
+output: html_document
+---
+
+---
+
+```{r, message=FALSE}
+library(readr)
+library(descr)
+```
+
+---
+
+Olá, pessoal. Este é o quarto exercício do nosso Projeto Integrador deste semestre. Vamos continuar trabalhando com o banco de dados do Enade 2014. Para leitura dos dados, use:
+
+```{r, message=FALSE}
+
+enade14 <- read_csv2("https://raw.githubusercontent.com/neylsoncrepalde/introducao_ao_r/master/dados/enade_2014_amostra.csv")
+
+
+```
+
+## Exercícios:
+
+## 1. Extraia a média, a mediana, mínimo, máximo, variância e desvio padrão da idade para todos os alunos da nossa amostra aleatória.
+
+```{r idade}
+
+# média da variável referente a idade da amostra
+mean(enade14$nu_idade)
+
+# mediana da variável referente a idade da amostra
+median(enade14$nu_idade)
+
+# menor valor da variável referente a idade da amostra
+min(enade14$nu_idade)
+
+# maior valor da variável referente a idade da amostra
+max(enade14$nu_idade)
+
+# variância da variável referente a idade da amostra
+var(enade14$nu_idade)
+
+# desvio padrão da variável referente a idade da amostra
+sd(enade14$nu_idade)
+
+
+```
+
+
+## 2. Elabore uma tabela de frequência da quantidade de alunos por sexo. Corrija a variável caso alguma categoria esteja “sobrando”.
+
+```{r sexo_alunos}
+
+sexo_alunos <- enade14$tp_sexo
+
+# tratamento da variável
+sexo_alunos[sexo_alunos == "N"] <- NA
+
+freq(sexo_alunos[!is.na(sexo_alunos)] ,plot = FALSE)
+
+```
+
+## 3. Agora extraia a média, a mediana, mínimo, máximo, variância e desvio padrão da idade para cada categoria de sexo. Exiba os mesmos resultados com um gráfico.
+
+```{r, warning= FALSE}
+
+# idades dos participantes do sexo feminino
+idade_feminina <- enade14$nu_idade[enade14$tp_sexo == "F"]
+
+# idades dos participantes do sexo masculino
+idade_masculina <- enade14$nu_idade[enade14$tp_sexo == "M"]
+
+```
+
+### Participantes do sexo feminino
+
+```{r idade_feminina}
+
+# média da variável referente a idade feminina
+mean(idade_feminina)
+
+# mediana da variável referente a idade feminina
+median(idade_feminina)
+
+# menor valor da variável referente a idade feminina
+min(idade_feminina)
+
+# maior valor da variável referente a idade feminina
+max(idade_feminina)
+
+# variância da variável referente a idade feminina
+var(idade_feminina)
+
+# desvio padrão da variável referente a idade feminina
+sd(idade_feminina)
+
+```
+
+### Participantes do sexo masculino
+
+```{r idade_masculina}
+
+# média da variável referente a idade masculina
+mean(idade_masculina)
+
+# mediana da variável referente a idade masculina
+median(idade_masculina)
+
+# menor valor da variável referente a idade masculina
+min(idade_masculina)
+
+# maior valor da variável referente a idade masculina
+max(idade_masculina)
+
+# variância da variável referente a idade masculina
+var(idade_masculina)
+
+# desvio padrão da variável referente a idade masculina
+sd(idade_masculina)
+
+```
+
+### Representação gráfica da relação entre as variáveis idade e sexo
+
+#### Representação gráfica da distribuição das idades das participantes do sexo feminino
+
+```{r}
+
+boxplot(idade_feminina,
+        col = "#DC143C",
+        main = "Participantes do sexo feminino - ENADE 2014", 
+        ylab = "Idade das participantes")
+
+```
+
+#### Representação gráfica da distribuição das idades dos participantes do sexo masculino
+
+```{r}
+
+boxplot(idade_masculina,
+        col = "#4169E1",
+        main = "Participantes do sexo masculino - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+
+
+
+## 4. Agora extraia a média, a mediana, mínimo, máximo, variância e desvio padrão da idade para cada categoria de cor/raça. Exiba os mesmos resultados com um gráfico.
+
+```{r, warning= FALSE}
+
+# idades dos participantes cuja cor/raça foi declarada brancos
+idade_brancos <- enade14$nu_idade[enade14$qe_i2 == "a"]
+
+# idades dos participantes cuja cor/raça foi declarada negros
+idade_negros <- enade14$nu_idade[enade14$qe_i2 == "b"]
+
+# idades dos participantes cuja cor/raça foi declarada pardos
+idade_pardos <- enade14$nu_idade[enade14$qe_i2 == "c"]
+
+# idades dos participantes cuja cor/raça foi declarada amarelos
+idade_amarelos <- enade14$nu_idade[enade14$qe_i2 == "d"]
+
+# idades dos participantes cuja cor/raça foi declarada indigenas
+idade_indigenas <- enade14$nu_idade[enade14$qe_i2 == "e"]
+
+```
+
+### Brancos
+
+```{r idade_brancos}
+
+# média da variável referente a idade de declarados brancos
+mean(idade_brancos, na.rm = TRUE)
+
+# mediana da variável referente a idade de declarados brancos
+median(idade_brancos, na.rm = TRUE)
+
+# menor valor da variável referente a idade de declarados brancos
+min(idade_brancos, na.rm = TRUE)
+
+# maior valor da variável referente a idade de declarados brancos
+max(idade_brancos, na.rm = TRUE)
+
+# variância da variável referente a idade de declarados brancos
+var(idade_brancos, na.rm = TRUE)
+
+# desvio padrão da variável referente a idade de declarados brancos
+sd(idade_brancos, na.rm = TRUE)
+
+```
+
+### Negros
+
+```{r idade_negros}
+
+# média da variável referente a idade de declarados negros
+mean(idade_negros, na.rm = TRUE)
+
+# mediana da variável referente a idade de declarados negros
+median(idade_negros, na.rm = TRUE)
+
+# menor valor da variável referente a idade de declarados negros
+min(idade_negros, na.rm = TRUE)
+
+# maior valor da variável referente a idade de declarados negros
+max(idade_negros, na.rm = TRUE)
+
+# variância da variável referente a idade de declarados negros
+var(idade_negros, na.rm = TRUE)
+
+# desvio padrão da variável referente a idade de declarados negros
+sd(idade_negros, na.rm = TRUE)
+
+```
+
+### Pardos
+
+```{r idade_pardos}
+
+# média da variável referente a idade de declarados pardos
+mean(idade_pardos, na.rm = TRUE)
+
+# mediana da variável referente a idade de declarados pardos
+median(idade_pardos, na.rm = TRUE)
+
+# menor valor da variável referente a idade de declarados pardos
+min(idade_pardos, na.rm = TRUE)
+
+# maior valor da variável referente a idade de declarados pardos
+max(idade_pardos, na.rm = TRUE)
+
+# variância da variável referente a idade de declarados pardos
+var(idade_pardos, na.rm = TRUE)
+
+# desvio padrão da variável referente a idade de declarados pardos
+sd(idade_pardos, na.rm = TRUE)
+
+```
+
+### Amarelos
+
+```{r idade_amarelos}
+
+# média da variável referente a idade de declarados amarelos
+mean(idade_amarelos, na.rm = TRUE)
+
+# mediana da variável referente a idade de declarados amarelos
+median(idade_amarelos, na.rm = TRUE)
+
+# menor valor da variável referente a idade de declarados amarelos
+min(idade_amarelos, na.rm = TRUE)
+
+# maior valor da variável referente a idade de declarados amarelos
+max(idade_amarelos, na.rm = TRUE)
+
+# variância da variável referente a idade de declarados amarelos
+var(idade_amarelos, na.rm = TRUE)
+
+# desvio padrão da variável referente a idade de declarados amarelos
+sd(idade_amarelos, na.rm = TRUE)
+
+```
+
+### Indigenas
+
+```{r idade_indigenas}
+
+# média da variável referente a idade de declarados indigenas
+mean(idade_indigenas, na.rm = TRUE)
+
+# mediana da variável referente a idade de declarados indigenas
+median(idade_indigenas, na.rm = TRUE)
+
+# menor valor da variável referente a idade de declarados indigenas
+min(idade_indigenas, na.rm = TRUE)
+
+# maior valor da variável referente a idade de declarados indigenas
+max(idade_indigenas, na.rm = TRUE)
+
+# variância da variável referente a idade de declarados indigenas
+var(idade_indigenas, na.rm = TRUE)
+
+# desvio padrão da variável referente a idade de declarados indigenas
+sd(idade_indigenas, na.rm = TRUE)
+
+```
+
+### Representação gráfica da relação entre as variáveis idade e cor/raça
+
+#### Representação gráfica da distribuição das idades dos participantes declarados brancos
+
+```{r}
+
+boxplot(idade_brancos,
+        col = "#6495ED",
+        main = "Participantes declarados brancos - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+#### Representação gráfica da distribuição das idades dos participantes declarados negros
+
+```{r}
+
+boxplot(idade_negros,
+        col = "#4169E1",
+        main = "Participantes declarados negros - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+#### Representação gráfica da distribuição das idades dos participantes declarados pardos
+
+```{r}
+
+boxplot(idade_pardos,
+        col = "#1E90FF",
+        main = "Participantes declarados pardos - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+#### Representação gráfica da distribuição das idades dos participantes declarados amarelos
+
+```{r}
+
+boxplot(idade_amarelos,
+        col = "#00BFFF",
+        main = "Participantes declarados amarelos - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+#### Representação gráfica da distribuição das idades dos participantes declarados indigenas
+
+```{r}
+
+boxplot(idade_indigenas,
+        col = "#87CEFA",
+        main = "Participantes declarados indigenas - ENADE 2014", 
+        ylab = "Idade dos participantes")
+
+```
+
+
+
+## 5. Verifique a distribuição de alunos por região do país. Exiba uma tabela de frequências e um gráfico.
+
+### Tratamento dos dados na variável
+
+```{r regiao}
+
+# cria a coluna região na base de dados do ENADE 2014 em que estamos trabalhando
+enade14$regiao <- enade14$co_regiao_curso
+
+# atribui os estados de acordo com o código usado na aplicação do ENADE 2014
+enade14$regiao[enade14$regiao == 1] = "Norte"
+enade14$regiao[enade14$regiao == 2] = "Nordeste"
+enade14$regiao[enade14$regiao == 3] = "Sudeste"
+enade14$regiao[enade14$regiao == 4] = "Sul"
+enade14$regiao[enade14$regiao == 5] = "Centro Oeste"
+
+```
+
+### Representação gráfica e a tabela da distribuição dos alunos participantes por região
+
+
+```{r representacao_regiao}
+
+# Representação gráfica da distribuição dos alunos por região do país
+freq(enade14$regiao,
+     main = "Distribuição dos participantes do ENADE 2014 por região",
+     ylab = "Qtd. de participantes na amostra",
+     col = c("#4169E1", "#4169E1", "#4169E1", "#4169E1", "#4169E1"))
+
+```
+
+## 6. Vamos investigar a associação entre a renda e a cor. Faça uma tabela cruzada entre essas duas variáveis.
+
+```{r}
+
+# criação das variáveis auxiliares
+enade14$cor_raca <- enade14$qe_i2
+enade14$distribuicao_renda <- enade14$qe_i8
+
+# preenchimento da variavel cor_raca
+enade14$cor_raca[enade14$cor_raca == "a"] <- "Brancos"
+enade14$cor_raca[enade14$cor_raca == "b"] <- "Negros"
+enade14$cor_raca[enade14$cor_raca == "c"] <- "Pardos"
+enade14$cor_raca[enade14$cor_raca == "d"] <- "Amarelos"
+enade14$cor_raca[enade14$cor_raca == "e"] <- "Indigenas"
+
+# preenchimento da variavel distribuicao de renda
+enade14$distribuicao_renda <- enade14$qe_i8
+enade14$distribuicao_renda[enade14$distribuicao_renda == "a"] <- "[até 1,5]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "b"] <- "[de 1,5 a 3]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "c"] <- "[de 3 a 4,5]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "d"] <- "[de 4,5 a 6]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "e"] <- "[de 6 a 10]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "f"] <- "[de 10 a 30]"
+enade14$distribuicao_renda[enade14$distribuicao_renda == "g"] <- "[acima de 30]"
+
+# cria uma tabela comparando as variaveis renda e cor
+comparacao<- table(enade14$cor_raca, enade14$distribuicao_renda)
+print(comparacao)
+
+```
+
+##Desafios:
+
+## 1. Guarde a tabela que vc programou no exercício 6 num objeto. Existe algum teste estatístico para sabermos se existe associação entre essas variáveis? Rode o teste e apresente os resultados. (nível easy)
+
+```{r}
+
+# Futuramente, pretendo voltar neste desafio e atualizá-lo.
+
+```
+
+## 2. Comente os resultados (nível medium)
+
+```{r}
+
+# Futuramente, pretendo voltar neste desafio e atualizá-lo.
+
+```
+
+## 3. Verifique a variável categoria administrativa da IES no dicionário de variáveis. Recategorize a variável em uma binária: “Pública e Privada”. Crie uma nova variável para armezenar esses dados. (nível hard)
+
+```{r}
+
+# Futuramente, pretendo voltar neste desafio e atualizá-lo.
+
+```
+
+## 4. Você consegue descobrir qual foi a média da nota geral dos alunos de pedagogia do Izabela Hendrix no Enade 2014? (nível Chuck Norris)
+
+```{r}
+
+# Futuramente, pretendo voltar neste desafio e atualizá-lo.
+
+```
+
+## Divirta-se\!
